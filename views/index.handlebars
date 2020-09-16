@@ -1,0 +1,80 @@
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton-framework/1.1.1/skeleton.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="/public/style.css">
+
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="row">
+            <div class="twelve columns box">
+                <h1>Greetings</h1>
+                <br>
+                <br>
+                <div class="row">
+
+                    <form action="/" method="POST">
+
+                        <div class="">
+                          
+                            <div class="center">
+                                <h5>Name</h5>
+                                <input class="u-full-width nameInserted" name="name" placeholder="eg. Yongama">
+                            </div>
+                            <br>
+                            <br>
+                            <form>
+
+                              
+                                <div>
+
+                                    <input type="radio" name="language" value="IsiXhosa">
+                                    IsiXhosa
+                                    <input type="radio" name="language" value="English"> English
+                                    <input type="radio" name="language" value="Afrikaans">
+                                    Afrikaans
+
+                                </div>
+                                <br>
+                                <br>
+
+                                <button class="button-primary addNameBtn" type="submit" name="button">Greet
+                                    Me</button>
+                                <br>
+                                <br>
+                                <button class="button-clear data" type="submit" name="button">Clear</button>
+                               
+                                
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <div class="message">
+
+                    {{message}}
+                </div>
+
+                <a href="/greeted"> Names Greeted </a>
+                
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+    <div id="counter">
+        <div class="NumberCounter"> {{counter}} </div>
+
+    </div>
+
+</body>
+
+</html>

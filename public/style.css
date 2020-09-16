@@ -1,0 +1,37 @@
+.row {
+  /* background-color: lightsteelblue; */
+  padding: 1em;
+  border-width: 5px;
+  border-style: unset;
+  color: slategray;
+  /* width: auto; */
+  /* max-height: inherit; */
+}
+
+h1 {
+  text-align: center;
+  font-size: 70;
+  color: slategray;
+}
+
+
+.container {
+  height: 200px;
+  width: 500px;
+  border: 10px;
+  color: slategray;
+  /* float: right; */
+}
+
+.NumberCounter{
+font-size: 50px;
+size: 10em;
+/* float: right; */
+
+}
+
+.center{
+  display: flex;
+  width: auto;
+}
+
