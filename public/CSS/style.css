@@ -1,4 +1,5 @@
 .row {
+  float: right;
   /* background-color: lightsteelblue; */
   padding: 1em;
   border-width: 5px;
