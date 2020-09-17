@@ -2,22 +2,7 @@ module.exports = function Greetings() {
 
     var list =  {};
 
-    // var name ={};
-    // 
-
-    // function setSettings(settings){
-
-    //     name = {name};
-        
-    // }
-
-    // function getSettings() {
-
-    //     return {
-    //         name,
-            
-    //     }
-    // }
+  
 
     function choice(Greet, name) {
 
