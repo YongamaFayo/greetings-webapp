@@ -2,7 +2,7 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const Greetings = require('./greetings');
 const bodyParser = require('body-parser');
-const {settings} = require('cluster');
+const { settings } = require('cluster');
 
 
 const app = express();
@@ -22,7 +22,7 @@ app.use(express.static('public'))
 app.get('/', function (req, res) {
     res.render('index', {
 
-      
+
 
     });
 
@@ -31,13 +31,13 @@ app.get('/', function (req, res) {
 app.post('/', function (req, res) {
 
     // console.log(req.body)
-    
-    const {name, language} = req.body;
+
+    const { name, language } = req.body;
     greetings.setName(name)
 
     res.render('index', {
         message: greetings.choice(language, name),
-        counter:greetings.counter()
+        counter: greetings.counter()
 
     })
 
@@ -47,22 +47,25 @@ app.post('/', function (req, res) {
 app.post('/action ', function (req, res) {
 
     greetings.choice(req.body.actionType)
-    
+
     res.redirect('/')
 
 })
 
-app.get('/greeted', function(req, res) {
+app.get('/greeted', function (req, res) {
 
-   res.render('greeted', {
+    res.render('greeted', {
 
-    names: greetings.namesGreeted(),
+        names: greetings.namesGreeted(),
 
 
 
-   })
+    })
 
-})
+
+
+});
+
 
 
 app.get('/counter/:counter', function (req, res) {
@@ -71,13 +74,43 @@ app.get('/counter/:counter', function (req, res) {
 
 
     res.render('hello', {
-        name, 
-        count:greetings.userCounter(name)
+        name,
+        count: greetings.userCounter(name)
     });
 
 })
+// app.get('/clear', function (req, res) {
 
-const PORT = process.env.PORT || 3013;
+//     greetings.clear(),
+//         res.render('index', {
+
+
+
+//         });
+
+// });
+app.get('/reset', function (req, res) {
+
+    greetings.reset(),
+        res.render('index', {
+
+
+
+        });
+
+
+app.get('/nameInsterted', function (req, res) {
+
+    greetings.noName(),
+        res.render('index', {
+
+
+
+        });
+    })
+
+});
+const PORT = process.env.PORT || 3015;
 
 app.listen(PORT, function () {
     console.log("App started at port:", PORT)

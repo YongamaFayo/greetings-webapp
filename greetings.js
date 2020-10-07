@@ -1,8 +1,15 @@
 module.exports = function Greetings() {
 
-    var list =  {};
+    var list = {};
 
-  
+
+    // async function addBooking(params) {
+
+    //     const INSERT_QUERY = "insert into drbooking (name, day, arriving_on) values ($1, $2, $3)";
+    //     await pool.query(INSERT_QUERY, [params.name, params.day, params.arriving_on]);
+    
+    // }
+
 
     function choice(Greet, name) {
 
@@ -22,7 +29,7 @@ module.exports = function Greetings() {
     }
 
     function setName(name) {
-        if (list[name] ===undefined) {
+        if (list[name] === undefined) {
             list[name] = 0;
         }
         list[name]++
@@ -30,7 +37,7 @@ module.exports = function Greetings() {
 
     function counter() {
         return Object.keys(list).length
-         
+
     }
 
     function namesGreeted() {
@@ -40,12 +47,30 @@ module.exports = function Greetings() {
     function userCounter(name) {
         for (const key in list) {
             if (key === name) {
-           var value = list[key];
+                var value = list[key];
             }
         }
         return value;
     }
-    
+    function reset() {
+
+        // list.length = 0;
+        list= {}
+
+    }
+    // function clear() {
+
+    //     namesGreeted.length = 0;
+    // }
+
+
+    function noName() {
+        if (name === "") {
+            message1.innerHTML = "Please enter name";
+            return;
+        }
+    }
+
 
     return {
 
@@ -53,18 +78,14 @@ module.exports = function Greetings() {
         setName,
         counter,
         namesGreeted,
-        userCounter
+        userCounter,
+        reset,
+        noName
+        
         // setSettings,
         // getSettings
 
-    }
+    };
 
-
-
-
-}
-
-
-
-
+};
 

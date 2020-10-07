@@ -1,5 +1,4 @@
 .row {
-  float: right;
   /* background-color: lightsteelblue; */
   padding: 1em;
   border-width: 5px;
@@ -21,13 +20,13 @@ h1 {
   width: 500px;
   border: 10px;
   color: slategray;
-  /* float: right; */
+  float: right; 
 }
 
 .NumberCounter{
 font-size: 50px;
 size: 10em;
-/* float: right; */
+float: right;
 
 }
 
