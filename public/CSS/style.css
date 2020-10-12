@@ -20,13 +20,13 @@ h1 {
   width: 500px;
   border: 10px;
   color: slategray;
-  float: right; 
+  /* float: right; */
 }
 
 .NumberCounter{
 font-size: 50px;
 size: 10em;
-float: right;
+float: right; 
 
 }
 
@@ -34,4 +34,3 @@ float: right;
   display: flex;
   width: auto;
 }
-

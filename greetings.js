@@ -1,13 +1,27 @@
-module.exports = function Greetings() {
+module.exports = function Greetings(pool) {
 
     var list = {};
 
 
-    // async function addBooking(params) {
+    async function greetings(name) {
 
-    //     const INSERT_QUERY = "insert into drbooking (name, day, arriving_on) values ($1, $2, $3)";
-    //     await pool.query(INSERT_QUERY, [params.name, params.day, params.arriving_on]);
-    
+        const INSERT_QUERY = "insert into greetings (name, counter) values ($1, $2)";
+        await pool.query(INSERT_QUERY, [name, 1]);
+
+    }
+
+    async function nameCheck(name) {
+
+        var check = await pool.query('select name from greetings where name =$1', [name]);
+
+        return check;
+
+    }
+
+    // async function countUpdate(update){
+    //     var count = await pool.query('update greetings set counter=counter+1 where name=$1', [update])
+    //     counsole.log(count)
+    //     return count.rowCount;
     // }
 
 
@@ -28,40 +42,57 @@ module.exports = function Greetings() {
 
     }
 
-    function setName(name) {
-        if (list[name] === undefined) {
-            list[name] = 0;
+
+    async function setName(name) {
+        // const results = await pool.query(`insert into greetings (name, counter)  
+        // values ($1, 1)
+        // returning id, name`, [name]);
+        // return results.rows[0]
+        const item = await pool.query(`select id from greetings where name=$1`, [name]);
+        if (item.rowCount === 0) {
+    
+            await pool.query(`insert into greetings(name, counter) values ($1, 0)`, [name]);
         }
-        list[name]++
+    
+        await pool.query(`update greetings set counter = counter+1 where name = $1`, [name]);
     }
 
-    function counter() {
-        return Object.keys(list).length
 
-    }
+    async function counter() {
 
-    function namesGreeted() {
-        return list
-    }
-
-    function userCounter(name) {
-        for (const key in list) {
-            if (key === name) {
-                var value = list[key];
-            }
+        const results = await pool.query('SELECT count(*) FROM greetings')
+        if (results.rows.length > 0) {
+            return results.rows[0].count;
         }
-        return value;
+        return 0;
     }
-    function reset() {
 
-        // list.length = 0;
-        list= {}
+    async function namesGreeted() {
+        let greetings = await pool.query('SELECT * from greetings');
+        return greetings.rows;
+    }
+
+    // return list
+
+
+    async function userCounter(name) {
+
+        const results = await pool.query('SELECT count(*) as counter FROM greetings where name =$1', [name]);
+        // for (const key in list) {
+        // if (key === name) {
+        //     var value = list[key];
+        // }
+
+        // return value;
+        return results.rows[0].counter;
+    }
+    async function reset() {
+
+        await pool.query('delete from greetings')
+        // list = {}
 
     }
-    // function clear() {
 
-    //     namesGreeted.length = 0;
-    // }
 
 
     function noName() {
@@ -74,6 +105,9 @@ module.exports = function Greetings() {
 
     return {
 
+        nameCheck,
+        // countUpdate,
+        greetings,
         choice,
         setName,
         counter,
@@ -81,11 +115,10 @@ module.exports = function Greetings() {
         userCounter,
         reset,
         noName
-        
+
         // setSettings,
         // getSettings
 
     };
 
-};
-
+}   

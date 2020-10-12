@@ -1,14 +1,23 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
-const Greetings = require('./greetings');
+// const Greetings = require('./greetings');
 const bodyParser = require('body-parser');
 const { settings } = require('cluster');
+const Greetings = require('./greetings');
+const pg = require("pg");
+const Pool = pg.Pool;
 
 
 const app = express();
-const greetings = Greetings();
 
-app.engine('handlebars', exphbs({ defaultLayout: 'main', layoutsDir: './views/layouts' }));
+
+const connectionString = process.env.DATABASE_URL || 'postgresql://yongama:pg123@localhost:5432/greetings';
+const pool = new Pool({
+    connectionString,
+    // ssl : useSSL
+});
+const greetings = Greetings(pool);
+app.engine('handlebars', exphbs({ layoutsDir: 'views/layouts/' }));
 app.set('view engine', 'handlebars');
 
 
@@ -17,14 +26,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(express.static('public'))
 
-const pg = require("pg");
-const Pool = pg.Pool
 
-const connectionString = process.env.DATABASE_URL || 'postgresql://yongama:total#90@localhost:5432/greetings';
-
-const pool = new Pool({
-	connectionString
-});
 
 
 
@@ -37,16 +39,17 @@ app.get('/', function (req, res) {
 
 });
 
-app.post('/', function (req, res) {
+app.post('/', async function (req, res) {
 
-    // console.log(req.body)
+   
 
     const { name, language } = req.body;
-    greetings.setName(name)
+    await greetings.setName(name)
 
     res.render('index', {
-        message: greetings.choice(language, name),
-        counter: greetings.counter()
+        message: await greetings.choice(language, name),
+        counter: await greetings.counter(),
+        choice:await greetings.nameCheck()
 
     })
 
@@ -61,13 +64,14 @@ app.post('/action ', function (req, res) {
 
 })
 
-app.get('/greeted', function (req, res) {
+app.get('/greeted', async function (req, res) {
+
+
+    var inserted = await greetings.namesGreeted()
+    console.log(inserted)
 
     res.render('greeted', {
-
-        names: greetings.namesGreeted(),
-
-
+        names: inserted
 
     })
 
@@ -77,46 +81,35 @@ app.get('/greeted', function (req, res) {
 
 
 
-app.get('/counter/:counter', function (req, res) {
+app.get('/counter/:username',async function (req, res) {
 
-    const name = req.params.counter;
+    const name = req.params.username;
+    const times = await greetings.userCounter(name);
 
-
+console.log(times)
     res.render('hello', {
         name,
-        count: greetings.userCounter(name)
+        count: times
     });
 
 })
-// app.get('/clear', function (req, res) {
 
-//     greetings.clear(),
-//         res.render('index', {
+app.get('/reset', async function (req, res) {
 
+  
+    await greetings.reset()
+    
+    res.render('index', {
 
-
-//         });
-
-// });
-app.get('/reset', function (req, res) {
-
-    greetings.reset(),
-        res.render('index', {
+        counter: await greetings.counter()
+       
 
 
 
-        });
+    });
 
 
-app.get('/nameInsterted', function (req, res) {
-
-    greetings.noName(),
-        res.render('index', {
-
-
-
-        });
-    })
+   
 
 });
 const PORT = process.env.PORT || 3015;
@@ -124,3 +117,4 @@ const PORT = process.env.PORT || 3015;
 app.listen(PORT, function () {
     console.log("App started at port:", PORT)
 })
+

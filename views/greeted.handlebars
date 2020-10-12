@@ -1,7 +1,7 @@
 
 <ul>
-{{#each names}} <a href="/counter/{{@key}}">
- <li>  {{@key}}</li>
+{{#each names}} <a href="/counter/{{this.name}}">
+ <li>  {{this.name}}</li>
 
  
  </a> {{/each}}
