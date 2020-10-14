@@ -13,7 +13,12 @@ h1 {
   font-size: 70;
   color: slategray;
 }
+.greeted {
+ 
+ text-align: center;
 
+
+}
 
 .container {
   height: 200px;
