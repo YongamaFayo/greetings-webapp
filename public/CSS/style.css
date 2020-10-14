@@ -26,7 +26,7 @@ h1 {
 .NumberCounter{
 font-size: 50px;
 size: 10em;
-float: right; 
+/* float: right;  */
 
 }
 
