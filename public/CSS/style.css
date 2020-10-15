@@ -39,3 +39,7 @@ size: 10em;
   display: flex;
   width: auto;
 }
+.error{
+  text-align: center;
+  color: red;
+}

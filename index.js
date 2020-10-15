@@ -9,6 +9,18 @@ const Pool = pg.Pool;
 
 
 const app = express();
+const flash = require('express-flash');
+const session = require('express-session');
+
+// initialise session middleware - flash-express depends on it
+app.use(session({
+    secret: "<add a secret string here>",
+    resave: false,
+    saveUninitialized: true
+}));
+
+// initialise the flash middleware
+app.use(flash());
 
 
 const connectionString = process.env.DATABASE_URL || 'postgresql://yongama:pg123@localhost:5432/greetings';
@@ -40,16 +52,40 @@ app.get('/', function (req, res) {
 });
 
 app.post('/', async function (req, res) {
+    
+    //const { name, language } = req.body;
+    let name = req.body.name;
+    let language = req.body.language
+    if (name === '' && language === undefined) {
+
+        req.flash('error', 'ENter your name and select a language')
+
+    } else if (name === '') {
+
+        req.flash('error', 'Enter name')
+
+    }
+    else if(language === undefined){
+
+        req.flash('error', 'choose a language')
+    }
+    else if (!(/[a-zA-z]$/.test(name))){
+        req.flash('error', 'enter a proper name')
+    }
+    else{
+
+        await greetings.setName(name)
+    }
 
    
 
-    const { name, language } = req.body;
-    await greetings.setName(name)
+
+
 
     res.render('index', {
         message: await greetings.choice(language, name),
         counter: await greetings.counter(),
-        choice:await greetings.nameCheck()
+        choice: await greetings.nameCheck()
 
     })
 
@@ -81,12 +117,12 @@ app.get('/greeted', async function (req, res) {
 
 
 
-app.get('/counter/:username',async function (req, res) {
+app.get('/counter/:username', async function (req, res) {
 
     const name = req.params.username;
     const times = await greetings.userCounter(name);
 
-console.log(times)
+    console.log(times)
     res.render('hello', {
         name,
         count: times
@@ -96,20 +132,20 @@ console.log(times)
 
 app.get('/reset', async function (req, res) {
 
-  
+
     await greetings.reset()
-    
+
     res.render('index', {
 
         counter: await greetings.counter()
-       
+
 
 
 
     });
 
 
-   
+
 
 });
 const PORT = process.env.PORT || 3015;
