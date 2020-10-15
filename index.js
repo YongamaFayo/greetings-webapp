@@ -58,7 +58,7 @@ app.post('/', async function (req, res) {
     let language = req.body.language
     if (name === '' && language === undefined) {
 
-        req.flash('error', 'ENter your name and select a language')
+        req.flash('error', 'Enter your name and select a language')
 
     } else if (name === '') {
 
@@ -85,7 +85,7 @@ app.post('/', async function (req, res) {
     res.render('index', {
         message: await greetings.choice(language, name),
         counter: await greetings.counter(),
-        choice: await greetings.nameCheck()
+        // choice: await greetings.nameCheck()
 
     })
 
