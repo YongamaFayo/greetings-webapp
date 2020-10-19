@@ -9,92 +9,88 @@
 
 <body> --}}
 
-    <div class="container">
+<div class="container">
 
-        <div class="row">
-            <div class="twelve columns box">
-                <h1>Greetings</h1>
-                <br>
-                <br>
-                <div class="row">
+    <div class="row">
+        <div class="twelve columns box">
+            <h1>Greetings</h1>
+            <br>
+            <br>
+            <div class="row">
 
-                    <form action="/" method="POST">
+                <form action="/" method="POST">
 
-                        <div class="">
+                    <div class="">
+
+                        <div>
+                            <span>Name</span>
+                            <input class=" nameInserted" name="name" placeholder="eg. Yongama">
+                        </div>
+                        <br>
+                        <br>
+                        <form>
+
 
                             <div>
-                                <span>Name</span>
-                                <input class=" nameInserted" name="name" placeholder="eg. Yongama">
+
+                                <input type="radio" name="language" value="IsiXhosa">
+                                IsiXhosa
+                                <input type="radio" name="language" value="English"> English
+                                <input type="radio" name="language" value="Afrikaans">
+                                Afrikaans
+
                             </div>
                             <br>
                             <br>
-                            <form>
 
+                            <button class="button-primary addNameBtn" type="submit" name="button">Greet
+                                Me</button> <a href="/reset">
 
-                                <div>
+                                <button class="button-reset data" type="button" name="button"> Reset
 
-                                    <input type="radio" name="language" value="IsiXhosa">
-                                    IsiXhosa
-                                    <input type="radio" name="language" value="English"> English
-                                    <input type="radio" name="language" value="Afrikaans">
-                                    Afrikaans
-
-                                </div>
-                                <br>
-                                <br>
-
-                                <button class="button-primary addNameBtn" type="submit" name="button">Greet
-                                    Me</button>
-                                
+                                </button>
 
 
 
-                        </div>
 
-                    </form>
+                    </div>
+                     <a href="/greeted"> Names Greeted </a>
+                </form>
 
-                    {{!-- <a href="/clear"> <button class="button-clear data" type="button" name="button">Clear</button></a> --}}
-
-                </div>
-
-                <div>
-
-                    <a href="/reset">
-
-                        <button class="button-reset data" type="button" name="button"> Reset
-
-                        </button>
-
-                    </a>
-
-                </div>
-
-                <div class="message">
-
-                    {{message}}
-                </div>
-
-                 <div class="error">
-
-                    {{messages.error}}
-                </div>
-
-
-                <a href="/greeted"> Names Greeted </a>
 
 
             </div>
 
+            <div>
+
+
+
+                </a>
+
+            </div>
+
+            <div class="message">
+
+                {{message}}
+            </div>
+
+            <div class="error">
+
+                {{messages.error}}
+            </div>
+
+
+           
+
+
         </div>
+
+    </div>
 
 
     <br>
-    </div>
-    <div id="counter">
-        <div class="NumberCounter"> {{counter}} </div>
+</div>
+<div id="counter">
+    <div class="NumberCounter"> {{counter}} </div>
 
-    </div>
-
-{{!-- </body>
-
-</html> --}}
+</div>

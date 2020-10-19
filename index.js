@@ -6,6 +6,7 @@ const { settings } = require('cluster');
 const Greetings = require('./greetings');
 const pg = require("pg");
 const Pool = pg.Pool;
+const _ = require('lodash');
 
 
 const app = express();
@@ -54,7 +55,7 @@ app.get('/', function (req, res) {
 app.post('/', async function (req, res) {
     
     //const { name, language } = req.body;
-    let name = req.body.name;
+    let name = _.capitalize( req.body.name);
     let language = req.body.language
     if (name === '' && language === undefined) {
 

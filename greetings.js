@@ -29,25 +29,22 @@ module.exports = function Greetings(pool) {
 
 
         if (Greet === "IsiXhosa") {
-            return "molo , " + name;
+            return "Molo, " + name;
 
         }
         else if (Greet === "English") {
-            return "hello , " + name;
+            return "Hello, " + name;
         }
 
         else if (Greet === "Afrikaans") {
-            return "hallo , " + name;
+            return "Hallo, " + name;
         }
 
     }
 
 
     async function setName(name) {
-        // const results = await pool.query(`insert into greetings (name, counter)  
-        // values ($1, 1)
-        // returning id, name`, [name]);
-        // return results.rows[0]
+       
         const item = await pool.query(`select id from greetings where name=$1`, [name]);
         if (item.rowCount === 0) {
     
@@ -72,18 +69,13 @@ module.exports = function Greetings(pool) {
         return greetings.rows;
     }
 
-    // return list
+    
 
 
     async function userCounter(name) {
 
         const results = await pool.query('SELECT counter FROM greetings where name =$1', [name]);
-        // for (const key in list) {
-        // if (key === name) {
-        //     var value = list[key];
-        // }
-
-        // return value;
+       
         return results.rows[0].counter;
     }
     async function reset() {

@@ -25,6 +25,7 @@ h1 {
   width: 500px;
   border: 10px;
   color: slategray;
+  text-align: center;
   /* float: right; */
 }
 
