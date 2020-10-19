@@ -77,7 +77,7 @@ module.exports = function Greetings(pool) {
 
     async function userCounter(name) {
 
-        const results = await pool.query('SELECT count(*) as counter FROM greetings where name =$1', [name]);
+        const results = await pool.query('SELECT counter FROM greetings where name =$1', [name]);
         // for (const key in list) {
         // if (key === name) {
         //     var value = list[key];
