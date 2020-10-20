@@ -6,8 +6,6 @@ const { settings } = require('cluster');
 const Greetings = require('./greetings');
 const pg = require("pg");
 const Pool = pg.Pool;
-const _ = require('lodash');
-
 
 const app = express();
 const flash = require('express-flash');
@@ -55,13 +53,15 @@ app.get('/', function (req, res) {
 app.post('/', async function (req, res) {
     
     //const { name, language } = req.body;
-    let name = _.capitalize( req.body.name);
+    let name = req.body.name;
+    const caps = name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase().slice();
+    console.log(caps);
     let language = req.body.language
-    if (name === '' && language === undefined) {
+    if (caps === '' && language === undefined) {
 
         req.flash('error', 'Enter your name and select a language')
-
-    } else if (name === '') {
+r
+    } else if (caps === '') {
 
         req.flash('error', 'Enter name')
 
@@ -70,12 +70,12 @@ app.post('/', async function (req, res) {
 
         req.flash('error', 'choose a language')
     }
-    else if (!(/[a-zA-z]$/.test(name))){
+    else if (!(/[a-zA-z]$/.test(caps))){
         req.flash('error', 'enter a proper name')
     }
     else{
 
-        await greetings.setName(name)
+        await greetings.setName(caps)
     }
 
    
